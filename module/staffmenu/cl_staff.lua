@@ -10,9 +10,6 @@ RMenu.Add('kernioz', 'main_menu_staff_ranks', RageUI.CreateSubMenu(RMenu:Get('ke
 RMenu.Add('kernioz', 'main_menu_staff_ranks_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_ranks'), "Administration", "~q~Que voulez-vous faire ?"))
 
 RMenu.Add('kernioz', 'main_menu_staff_myped', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_laboratories', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_laboratories_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_laboratories'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_laboratories_create', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_laboratories'), "Administration", "~q~Que voulez-vous faire ?"))
 
 RMenu.Add('kernioz', 'main_menu_staff_players', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
 RMenu.Add('kernioz', 'main_menu_staff_players_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players'), "Administration", "~q~Que voulez-vous faire ?"))
@@ -26,7 +23,7 @@ RMenu.Add('kernioz', 'main_menu_staff_list', RageUI.CreateSubMenu(RMenu:Get('ker
 RMenu.Add('kernioz', 'main_menu_staff_banlist', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
 
 kUtils.RegisterControlKey("+handlerStaff", "Menu staff", "F10", function()
-
+    Admin:OpenMenu()
 end)
 
 local wantConfirm = false
@@ -44,7 +41,7 @@ function Admin:OpenMenu()
                 Citizen.Wait(1.0)
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff'), true, false, true, function()
-                    RageUI.Separator("~g~" .. #Admin.Players .. "~s~ joueurs en ligne")
+                   -- RageUI.Separator("~g~" .. #Admin.Players .. "~s~ joueurs en ligne")
                     RageUI.ButtonWithStyle(" Players list", nil, {RightLabel = ">"}, true, function(_, _, s)
                         if s then
                             TriggerServerCallback("players:getPlayers", function(cb)

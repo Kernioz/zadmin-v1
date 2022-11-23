@@ -2,6 +2,27 @@ Admin = Admin or {}
 
 Admin.ESX = exports['es_extended']:getSharedObject()
 
+function Admin:getAllPlys()
+    local tblSended = {}
+    local playersActive = self.ESX.GetPlayers()
+
+    for k, v in pairs(playersActive) do 
+        local playerName = GetPlayerName(k)
+        local playerId = k
+        table.insert(tblSended, {
+            playerId = k,
+            playerName = playerName,
+            userId = playersActive[k].user_id
+        })
+    end 
+
+    return tblSended
+end
+
+RegisterServerCallback("players:getPlayers", function(source, cb)
+    cb(Admin:getAllPlys())
+end)
+
 RegisterNetEvent("admin:tooLongReplyStaff")
 AddEventHandler("admin:tooLongReplyStaff", function(toPlayer) 
     local source = source
@@ -12,6 +33,24 @@ RegisterNetEvent("admin:replyToStaff")
 AddEventHandler("admin:replyToStaff", function(toPlayer, a) 
     local source = source 
     TriggerClientEvent("kFw:showNotification", toPlayer, "~r~Réponse joueur\n~s~"..a)
+end)
+
+RegisterNetEvent("admin:plyManager")
+AddEventHandler("admin:plyManager", function(param, int, arg)
+    local source = source
+    
+    if param == 1 then
+    elseif param == 2 then
+        if int == 1 then 
+            local entity = NetworkGetEntityFromNetworkId(arg)
+            Citizen.InvokeNative(`DELETE_ENTITY` & 0xFFFFFFFF, entity)
+        elseif int == 2 then 
+            for k, v in pairs(arg) do 
+                local entity = NetworkGetEntityFromNetworkId(v)
+                Citizen.InvokeNative(`DELETE_ENTITY` & 0xFFFFFFFF, entity)
+            end 
+        end 
+    end
 end)
 
 AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
