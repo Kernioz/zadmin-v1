@@ -80,7 +80,7 @@ function Admin:OpenMenu()
 
                         kUtils.ShowNotification("~g~Vous avez activé le mode invisible")
 
-                        Admin:Invisible()
+                        Admin:SetInvisible()
                     end, function()
                         Player.IsInvisible = not Player.IsInvisible
                         NetworkSetEntityInvisibleToNetwork(PlayerPedId(), Player.IsInvisible)
