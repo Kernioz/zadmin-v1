@@ -6,7 +6,7 @@ function Admin:getAllPlys()
     local tblSended = {}
     local playersActive = self.ESX.GetPlayers()
 
-    for i = 1, #v, 1 do 
+    for i = 1, #playersActive, 1 do 
         local playerESX = self.ESX.GetPlayerFromId(playersActive[i])
         local playerName = GetPlayerName(playersActive[i])
         local playerId = playersActive[i]
