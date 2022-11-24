@@ -1,39 +1,39 @@
-RMenu.Add('kernioz', 'main_menu_staff', RageUI.CreateMenu("Administration", "~q~Que voulez-vous faire ?", 1, 140))
+RMenu.Add('kernioz', 'main_menu_staff', RageUI.CreateMenu("Admin", "Menu options", 1, 100))
 RMenu:Get('kernioz', 'main_menu_staff').Closed = function()
-    PLAYER.InMenu = false
+    Player.InMenu = false
 end
 
-RMenu.Add('kernioz', 'main_menu_staff_servers', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
+RMenu.Add('kernioz', 'main_menu_staff_servers', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
 
 
-RMenu.Add('kernioz', 'main_menu_staff_ranks', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_servers'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_ranks_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_ranks'), "Administration", "~q~Que voulez-vous faire ?"))
+RMenu.Add('kernioz', 'main_menu_staff_ranks', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_servers'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_ranks_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_ranks'), "Admin", "Menu options"))
 
-RMenu.Add('kernioz', 'main_menu_staff_myped', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
+RMenu.Add('kernioz', 'main_menu_staff_myped', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
 
-RMenu.Add('kernioz', 'main_menu_staff_players', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_players_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_players_interact_warnslist', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players_interact'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_players_interact_history', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players_interact'), "Administration", "~q~Que voulez-vous faire ?"))
+RMenu.Add('kernioz', 'main_menu_staff_players', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_players_interact', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_players_interact_warnslist', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players_interact'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_players_interact_history', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players_interact'), "Admin", "Menu options"))
 
-RMenu.Add('kernioz', 'main_menu_staff_world', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_others', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_vehicles', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_list', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players'), "Administration", "~q~Que voulez-vous faire ?"))
-RMenu.Add('kernioz', 'main_menu_staff_banlist', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Administration", "~q~Que voulez-vous faire ?"))
+RMenu.Add('kernioz', 'main_menu_staff_world', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_others', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_vehicles', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_list', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff_players'), "Admin", "Menu options"))
+RMenu.Add('kernioz', 'main_menu_staff_banlist', RageUI.CreateSubMenu(RMenu:Get('kernioz', 'main_menu_staff'), "Admin", "Menu options"))
 
-kUtils.RegisterControlKey("+handlerStaff", "Menu staff", "F10", function()
+kUtils.RegisterControlKey("handlerStaff", "Menu staff", "F10", function()
     Admin:OpenMenu()
 end)
 
 local wantConfirm = false
 function Admin:OpenMenu()
-    if PLAYER.InMenu then 
-        PLAYER.InMenu = false
+    if Player.InMenu then 
+        Player.InMenu = false
         RageUI.CloseAll()
         return
     else
-        PLAYER.InMenu = true
+        Player.InMenu = true
         RageUI.Visible(RMenu:Get('kernioz', 'main_menu_staff'), true)
       
         Citizen.CreateThread(function()
@@ -42,7 +42,7 @@ function Admin:OpenMenu()
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff'), true, false, true, function()
                    -- RageUI.Separator("~g~" .. #Admin.Players .. "~s~ joueurs en ligne")
-                    RageUI.ButtonWithStyle(" Players list", nil, {RightLabel = ">"}, true, function(_, _, s)
+                    RageUI.ButtonWithStyle(" Players list", nil, {RightLabel = "→"}, true, function(_, _, s)
                         if s then
                             TriggerServerCallback("players:getPlayers", function(cb)
                                 Admin.Players = cb
@@ -50,8 +50,8 @@ function Admin:OpenMenu()
                         end
                     end, RMenu:Get('kernioz', 'main_menu_staff_players'))
 
-                    RageUI.ButtonWithStyle(" My player", nil, {RightLabel = ">"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_myped'))
-                    RageUI.ButtonWithStyle(" Vehicles", nil, {RightLabel = ">"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_vehicles'))
+                    RageUI.ButtonWithStyle(" My player", nil, {RightLabel = "→"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_myped'))
+                    RageUI.ButtonWithStyle(" Vehicles", nil, {RightLabel = "→"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_vehicles'))
                 end)
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff_myped'), true, false, true, function() 
@@ -80,7 +80,7 @@ function Admin:OpenMenu()
 
                         kUtils.ShowNotification("~g~Vous avez activé le mode invisible")
 
-                        whileInvinsible()
+                        Admin:Invisible()
                     end, function()
                         Player.IsInvisible = not Player.IsInvisible
                         NetworkSetEntityInvisibleToNetwork(PlayerPedId(), Player.IsInvisible)
@@ -138,7 +138,7 @@ function Admin:OpenMenu()
                             noLabel = v.playerName
                             v.playerName = string.lower(v.playerName)
                             if string.sub(v.playerName, 1, string.len(cfg_staff.filterHandler.filtrer)) == cfg_staff.filterHandler.filtrer then
-                                RageUI.ButtonWithStyle(" " ..noLabel .. " (" .. v.userId .. ") ", nil, {RightLabel = ""}, true, function(_, _, s) 
+                                RageUI.ButtonWithStyle(" " ..noLabel .. " (" .. v.userId .. ") ", nil, {RightLabel = "→"}, true, function(_, _, s) 
                                     if s then
                                         Admin.targetId = {
                                             playerName = noLabel,
@@ -151,7 +151,7 @@ function Admin:OpenMenu()
                             end
                         else
                             if v.playerName == nil then Admin.Players[k] = nil end 
-                            RageUI.ButtonWithStyle(" " ..v.playerName .. " (" .. v.userId .. ")", nil, {RightLabel = ""}, true, function(_, _, s) 
+                            RageUI.ButtonWithStyle(" " ..v.playerName .. " (" .. v.userId .. ")", nil, {RightLabel = "→"}, true, function(_, _, s) 
                                 if s then 
                                     Admin.targetId = {
                                         playerName = v.playerName,
@@ -199,16 +199,16 @@ function Admin:OpenMenu()
                     end)
                     RageUI.ButtonWithStyle(" Goto", nil, {RightLabel = ""}, true, function(_, _, s) 
                         if s then 
-                            ExecuteCommand("goto " .. Admin.targetId.userId)
+                            ExecuteCommand("goto " .. Admin.targetId.serverId)
                         end
                     end)
                     RageUI.ButtonWithStyle(" Bring", nil, {RightLabel = ""}, true, function(_, _, s) 
                         if s then 
-                            ExecuteCommand("bring " .. Admin.targetId.userId)
+                            ExecuteCommand("bring " .. Admin.targetId.serverId)
                         end
                     end)
                     
-                    RageUI.List(" Information", {"UUID", "Discord"}, cfg_staff.indexHandler.infoPer, nil, {}, true, {
+                    RageUI.List(" Information", {"UUID", "Discord", "License", "Tout"}, cfg_staff.indexHandler.infoPer, nil, {}, true, {
                         onListChange = function(Index, Item)
                             cfg_staff.indexHandler.infoPer = Index
                         end,
@@ -218,13 +218,17 @@ function Admin:OpenMenu()
                                 ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " uuid")
                             elseif Index == 2 then
                                 ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " discord")
+                            elseif Index == 3 then
+                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " license")
+                            elseif Index == 4 then
+                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " all")
                             end
                         end,
                     })
                    
                     RageUI.ButtonWithStyle(" Freeze le joueur", nil, {RightLabel = ""}, true, function(_, _, s) 
                         if s then 
-                            ExecuteCommand("freeze " .. Admin.targetId.userId)
+                            ExecuteCommand("freeze " .. Admin.targetId.serverId)
                         end 
                     end)
                     RageUI.ButtonWithStyle(" Screenshot", nil, {RightLabel = ""}, true, function(_, _, s) 

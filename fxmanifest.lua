@@ -48,7 +48,7 @@ client_script {
 
 
 server_scripts {
-    '@oxmysql/lib/MySQL.lua',
+    '@mysql-async/lib/MySQL.lua',
     "config/sh_config.lua",
     "config/enums/webhook.lua",
     "config/others/cfg_anticheat.lua",

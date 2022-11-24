@@ -6,13 +6,14 @@ function Admin:getAllPlys()
     local tblSended = {}
     local playersActive = self.ESX.GetPlayers()
 
-    for k, v in pairs(playersActive) do 
-        local playerName = GetPlayerName(k)
-        local playerId = k
+    for i = 1, #v do 
+        local playerESX = self.ESX.GetPlayerFromId(playersActive[i])
+        local playerName = GetPlayerName(playersActive[i])
+        local playerId = playersActive[i]
         table.insert(tblSended, {
             playerId = k,
             playerName = playerName,
-            userId = playersActive[k].user_id
+            userId = playerESX.user_id
         })
     end 
 

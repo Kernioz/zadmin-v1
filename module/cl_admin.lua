@@ -54,8 +54,7 @@ Admin.DetailsInSpec = {
     }
 }
 
-
-kUtils.RegisterControlKey("+handlerSpectacte", "Mode spectateur (staff)", "O", function()
+kUtils.RegisterControlKey("handlerSpectacte", "Mode spectateur (staff)", "O", function()
     Admin:Spectate()
 end)
 
@@ -464,7 +463,6 @@ whileShowName = function()
 end
 
 function Admin:SetInvisible()
-    Player.IsInvisible = not Player.IsInvisible
     Citizen.CreateThread(function()
         while Player.IsInvisible do 
             Citizen.Wait(1.0)

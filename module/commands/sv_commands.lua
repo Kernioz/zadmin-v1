@@ -17,7 +17,7 @@ end, false)
 
 Commands.Register("mp", function(source, args, rawCommand)
     local plySource = source
-    local plyTarget = Admin.ESX.GetPlayerFromUUID(plyTarget)
+    local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
     local reason = table.concat(args, " ", 2)
 
     TriggerClientEvent("admin:asyncChat", plyTarget.source, plySource, reason)
@@ -57,7 +57,7 @@ Commands.Register("unban", function(source, args, rawCommand)
 end, {"Owner", "Supervisor"})
 
 
-Commands.Register("kick", function(source, args, rawCommand)
+Commands.Register("kickuuid", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
     local reason = table.concat(args, " ", 2)
@@ -112,4 +112,83 @@ Commands.Register("banuuid", function(source, args, rawCommand)
             end
         end
     end
+end, {"Moderator", "Owner", "Supervisor"})
+
+Commands.Register("getinfo", function(source, args, rawCommand) 
+    if source ~= 0 then 
+        local kPlayer = exports.zFw:getCache(source)
+        if args[1] ~= nil then  -- id du joueur
+            local targetPlayer = exports.zFw:getCache(tonumber(args[1]))
+            if targetPlayer == nil then return end  
+            if args[2] == "discord" then 
+                local discord = GetDiscord(targetPlayer.source)
+                local member = string.sub(discord, 9, -1)
+                PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
+                    if err == 200 then
+                        local text = json.decode(text)
+                        TriggerClientEvent("kFw:showNotification", source, "Informations\nID Discord: ~b~"..member.."~s~\nDiscord: ~b~".. text["user"]["username"] .. "#" .. text["user"]["discriminator"] .. "~s~", 2500)
+                    end
+                end, 'GET', '', { ["authorization"] = 'Bot Njg3NDQ5NDM0MTY2MDAxNjg4.G93J-L.lhLD8pQhZs2ETbMxqDreyFNCjNzIEI0t1gJY5c'})
+            elseif args[2] == "license" then
+                local rockstar = GetLicense(targetPlayer.source)
+     
+                TriggerClientEvent("kFw:showNotification", source, "Informations\nLicense: ~b~"..rockstar.."~s~", 2500)
+            elseif args[2] == "idperma" then 
+                local idPerma = targetPlayer.id
+          
+                TriggerClientEvent("kFw:showNotification", source, "Informations\nID Permanent: ~b~"..idPerma.."~s~", 2500)
+            elseif args[2] == "all" then 
+                local discord = GetDiscord(targetPlayer.source)
+                local member = string.sub(discord, 9, -1)
+                local rockstar = GetLicense(targetPlayer.source)
+                
+                local idPerma = targetPlayer.id
+
+                PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
+                    if err == 200 then
+                        local text = json.decode(text)
+                        TriggerClientEvent("kFw:showNotification", source, "Informations (~b~".. text["user"]["username"] .. "#" .. text["user"]["discriminator"] .."~s~)\nID Discord: ~b~"..member.."~s~\nLicense: ~b~"..rockstar.."~s~\nID Permanent: ~b~"..idPerma.."~s~", 2500)
+                    end
+                end, 'GET', '', { ["authorization"] = 'Bot Njg3NDQ5NDM0MTY2MDAxNjg4.G93J-L.lhLD8pQhZs2ETbMxqDreyFNCjNzIEI0t1gJY5c'})
+            end 
+        end
+    end 
+end, {"Moderator", "Owner", "Supervisor"})
+
+Commands.Register("getinfo", function(source, args, rawCommand)
+    local plySource = source
+    local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
+
+    if plyTarget == nil then return end 
+    if args[2] == "discord" then
+        local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.source, "discord"), 9, -1)
+        PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
+            if err == 200 then
+                local text = json.decode(text)
+                TriggerClientEvent("kFw:showNotification", source, "Informations\nID Discord: ~b~"..member.."~s~\nDiscord: ~b~".. text["user"]["username"] .. "#" .. text["user"]["discriminator"] .. "~s~", 2500)
+            end
+        end, 'GET', '', { ["authorization"] = 'Bot MTAzNzMxODYzMjY2NzA4Njg0OA.GczvHa.vDYjPdTtl_QVlJLNkNHhq1Yk-Y_PgJfZbgaUEU'})  
+    elseif args[2] == "license" then
+        local rockstar = zFw["Utils"].RequestLicense(plyTarget.source, "rockstar")
+
+        TriggerClientEvent("kFw:showNotification", source, "Informations\nLicense: ~b~"..rockstar.."~s~", 2500)
+    elseif args[2] == "uuid" then 
+        local idPerma = args[1]
+  
+        TriggerClientEvent("kFw:showNotification", source, "Informations\nID Permanent: ~b~"..idPerma.."~s~", 2500)
+    elseif args[2] == "all" then 
+        local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.source, "discord"), 9, -1)
+        local rockstar = GetLicense(targetPlayer.source)
+        local rockstar = zFw["Utils"].RequestLicense(plyTarget.source, "rockstar")
+
+        local idPerma = args[1]
+  
+        PerformHttpRequest("https://discord.com/api/v9/guilds/666775709553000449/members/" .. member, function(err, text, headers)
+            if err == 200 then
+                local text = json.decode(text)
+                TriggerClientEvent("kFw:showNotification", source, "Informations (~b~".. text["user"]["username"] .. "#" .. text["user"]["discriminator"] .."~s~)\nID Discord: ~b~"..member.."~s~\nLicense: ~b~"..rockstar.."~s~\nUUID: ~b~"..idPerma.."~s~", 2500)
+            end
+        end, 'GET', '', { ["authorization"] = 'Bot MTAzNzMxODYzMjY2NzA4Njg0OA.GczvHa.vDYjPdTtl_QVlJLNkNHhq1Yk-Y_PgJfZbgaUEU'})
+    end
+
 end, {"Moderator", "Owner", "Supervisor"})
