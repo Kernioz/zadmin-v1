@@ -14,7 +14,7 @@ setmetatable(Commands.Register, {
                     handler(source, args, rawCommand)
                 else
                     local plyDb = Admin.ESX.GetPlayerFromId(source)
-                    if Commands:haveAccess(plyDb.group, tbl) then 
+                    if Commands:haveAccess(plyDb.group, restricted) then 
                         handler(source, args, rawCommand)
                     end 
                 end 
