@@ -11,7 +11,7 @@ function Admin:getAllPlys()
         local playerName = GetPlayerName(playersActive[i])
         local playerId = playersActive[i]
         table.insert(tblSended, {
-            playerId = k,
+            playerId = playerId,
             playerName = playerName,
             userId = playerESX.user_id
         })
