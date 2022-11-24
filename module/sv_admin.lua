@@ -79,7 +79,7 @@ AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
     end
 
     Citizen.Wait(5000)
-    GM.Bans:IsBanned(pTokens, function(isBanned, banData)
+    Bans:IsBanned(pTokens, function(isBanned, banData)
         if isBanned then
             if tonumber(banData.permanent) == 1 then
                 pDeferals.done(("\n\n🚫 Vous êtes banni permanent de MZ PVP. \nDétails de votre bannissement\n\n Raison : %s\n Auteur: %s\nID-Ban: %s"):format(banData.reason, banData.sourceName, banData.id))

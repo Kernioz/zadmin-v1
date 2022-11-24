@@ -37,7 +37,7 @@ function Admin:OpenMenu()
         RageUI.Visible(RMenu:Get('kernioz', 'main_menu_staff'), true)
       
         Citizen.CreateThread(function()
-            while PLAYER.InMenu do
+            while Player.InMenu do
                 Citizen.Wait(1.0)
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff'), true, false, true, function()
