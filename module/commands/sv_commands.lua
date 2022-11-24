@@ -83,7 +83,7 @@ Commands.Register("banuuid", function(source, args, rawCommand)
         local sourceName = GetPlayerName(source)
         local targetName = GetPlayerName(targetDb.source)
         if targetName then
-            if expiration and expiration <= 336 then
+            if expiration then
                 licenseid = zFw["Utils"].RequestLicense(targetDb.source, "license")
 
                 for e = 0, GetNumPlayerTokens(targetDb.source) do
@@ -100,11 +100,11 @@ Commands.Register("banuuid", function(source, args, rawCommand)
 
                 if expiration > 0 then
                     Bans:Add(source, licenseid, playerip, targetName, sourceName, expiration, reason, 0, tokens)
-                    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was kicked from the server for: "..reason)
+                    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was banned from the server for: "..reason)
                     DropPlayer(targetDb.source, ('Vous êtes banni de MZPVP\nRaison : %s\nTemps Restant : %s\nAuteur : %s'):format(reason, TimeRemaining(expiration * 3600), sourceName))
                 else
                     Bans:Add(source, licenseid, playerip, targetName, sourceName, expiration, reason, 1, tokens)
-                    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was kicked from the server for: "..reason)
+                    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was banned from the server for: "..reason)
                     DropPlayer(targetDb.source, ('Vous êtes banni de MZPVP\nRaison : %s\nTemps Restant : Permanent\nAuteur : %s'):format(reason, sourceName))
                 end
             end
