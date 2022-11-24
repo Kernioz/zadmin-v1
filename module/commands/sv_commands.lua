@@ -115,8 +115,7 @@ end, {"mod", "superadmin", "admin"})
 Commands.Register("getinfo", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = Admin.ESX.GetPlayerFromUUID(tonumber(args[1]))
- 
-    print(plyTarget, args[1])
+
     if args[2] == "discord" then
         local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.playerId, "discord"), 9, -1)
         PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
@@ -126,7 +125,7 @@ Commands.Register("getinfo", function(source, args, rawCommand)
             end
         end, 'GET', '', { ["authorization"] = 'Bot MTAzNzMxODYzMjY2NzA4Njg0OA.GczvHa.vDYjPdTtl_QVlJLNkNHhq1Yk-Y_PgJfZbgaUEU'})  
     elseif args[2] == "license" then
-        local rockstar = zFw["Utils"].RequestLicense(plyTarget.playerId, "rockstar")
+        local rockstar = zFw["Utils"].RequestLicense(plyTarget.playerId, "license")
 
         TriggerClientEvent("kFw:showNotification", source, "Informations\nLicense: ~b~"..rockstar.."~s~", 2500)
     elseif args[2] == "uuid" then 
@@ -135,7 +134,7 @@ Commands.Register("getinfo", function(source, args, rawCommand)
         TriggerClientEvent("kFw:showNotification", source, "Informations\nUUID: ~b~"..idPerma.."~s~", 2500)
     elseif args[2] == "all" then 
         local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.playerId, "discord"), 9, -1)
-        local rockstar = zFw["Utils"].RequestLicense(plyTarget.playerId, "rockstar")
+        local rockstar = zFw["Utils"].RequestLicense(plyTarget.playerId, "license")
 
         local idPerma = args[1]
   
