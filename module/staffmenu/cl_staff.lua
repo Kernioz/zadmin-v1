@@ -215,13 +215,13 @@ function Admin:OpenMenu()
 
                         onSelected = function(Index, Item)
                             if Index == 1 then
-                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " uuid")
+                                ExecuteCommand("getinfo " .. Admin.targetId.userId .. " uuid")
                             elseif Index == 2 then
-                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " discord")
+                                ExecuteCommand("getinfo " .. Admin.targetId.userId .. " discord")
                             elseif Index == 3 then
-                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " license")
+                                ExecuteCommand("getinfo " .. Admin.targetId.userId .. " license")
                             elseif Index == 4 then
-                                ExecuteCommand("getinfo " .. Admin.targetId.serverId .. " all")
+                                ExecuteCommand("getinfo " .. Admin.targetId.userId .. " all")
                             end
                         end,
                     })

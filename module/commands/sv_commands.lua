@@ -117,8 +117,7 @@ end, {"Moderator", "Owner", "Supervisor"})
 Commands.Register("getinfo", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
-
-    if plyTarget == nil then return end 
+ 
     if args[2] == "discord" then
         local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.source, "discord"), 9, -1)
         PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
@@ -134,7 +133,7 @@ Commands.Register("getinfo", function(source, args, rawCommand)
     elseif args[2] == "uuid" then 
         local idPerma = args[1]
   
-        TriggerClientEvent("kFw:showNotification", source, "Informations\nID Permanent: ~b~"..idPerma.."~s~", 2500)
+        TriggerClientEvent("kFw:showNotification", source, "Informations\nUUID: ~b~"..idPerma.."~s~", 2500)
     elseif args[2] == "all" then 
         local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.source, "discord"), 9, -1)
         local rockstar = GetLicense(targetPlayer.source)
