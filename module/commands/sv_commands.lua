@@ -116,6 +116,7 @@ Commands.Register("getinfo", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = Admin.ESX.GetPlayerFromUUID(tonumber(args[1]))
  
+    print(plyTarget, args[1])
     if args[2] == "discord" then
         local member = string.sub(zFw["Utils"].RequestLicense(plyTarget.playerId, "discord"), 9, -1)
         PerformHttpRequest("https://discord.com/api/v10/guilds/666775709553000449/members/" .. member, function(err, text, headers)
