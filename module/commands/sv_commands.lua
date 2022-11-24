@@ -19,7 +19,7 @@ Commands.Register("mp", function(source, args, rawCommand)
     local reason = table.concat(args, " ", 2)
 
     TriggerClientEvent("admin:asyncChat", plyTarget.source, plySource, reason)
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"mod", "admin", "superadmin"})
 
 Commands.Register("freezed", function(source, args, rawCommand)
     local plySource = source
@@ -32,7 +32,7 @@ Commands.Register("freezed", function(source, args, rawCommand)
         TriggerClientEvent('chatMessage', plyDb.source, "^1MZPVP | ^7Vous avez été freeze par ^8^*" .. GetPlayerName(source))
         TriggerClientEvent("kFw:freezeEntityPlayer", plyDb.source)
     end 
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"admin", "mod", "superadmin"})
 
 Commands.Register("dv", function(source, args, rawCommand)
     local plySource = source
@@ -43,7 +43,7 @@ Commands.Register("dv", function(source, args, rawCommand)
     else
         TriggerClientEvent("admin:deleteEntities", plySource, tonumber(1))
     end
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"mod", "admin", "superadmin"})
 
 Commands.Register("unban", function(source, args, rawCommand)
     local plySource = source
@@ -52,7 +52,7 @@ Commands.Register("unban", function(source, args, rawCommand)
     if plyTarget then 
         Bans:DeleteWithId(plyTarget)
     end
-end, {"Owner", "Supervisor"})
+end, {"superadmin", "admin"})
 
 
 Commands.Register("kickuuid", function(source, args, rawCommand)
@@ -62,7 +62,7 @@ Commands.Register("kickuuid", function(source, args, rawCommand)
 
     TriggerClientEvent('chatMessage', plyDb.source, "MZ PVP: "..GetPlayerName(plyTarget.source).." was kicked from the server for: "..reason)
     DropPlayer(plyTarget.source, reason)
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"mod", "admin", "superadmin"})
 
 local function TimeRemaining(seconds)
     local days = seconds / 86400
@@ -110,7 +110,7 @@ Commands.Register("banuuid", function(source, args, rawCommand)
             end
         end
     end
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"mod", "superadmin", "admin"})
 
 Commands.Register("getinfo", function(source, args, rawCommand)
     local plySource = source
@@ -147,4 +147,4 @@ Commands.Register("getinfo", function(source, args, rawCommand)
         end, 'GET', '', { ["authorization"] = 'Bot MTAzNzMxODYzMjY2NzA4Njg0OA.GczvHa.vDYjPdTtl_QVlJLNkNHhq1Yk-Y_PgJfZbgaUEU'})
     end
 
-end, {"Moderator", "Owner", "Supervisor"})
+end, {"mod", "superadmin", "admin"})
