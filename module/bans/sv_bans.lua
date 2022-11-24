@@ -12,7 +12,7 @@ end
 
 function Bans:DeleteWithId(licenseid, cb)
     MySQL.Async.execute("DELETE FROM banlist WHERE id = @licenseid", {
-        ["@id"] = licenseid
+        ["@licenseid"] = licenseid
     }, function()
         if cb then
             cb()
