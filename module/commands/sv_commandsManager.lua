@@ -30,5 +30,10 @@ setmetatable(Commands.Register, {
 
 
 function Commands:haveAccess(group, tbl)
-    for k, v in pairs(tbl) do if group == v then return true end end return false  
+    for k, v in pairs(tbl) do 
+        if group == v then 
+            return true
+        end 
+    end 
+    return false  
 end

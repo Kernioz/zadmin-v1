@@ -61,7 +61,7 @@ server_scripts {
     "utils/discord-api/classes/sv_webhook.lua",
 
     "module/sv_admin.lua",
-    "module/commands/sv_commands.lua",
     "module/commands/sv_commandsManager.lua",
+    "module/commands/sv_commands.lua",
     "module/bans/sv_bans.lua",
 }

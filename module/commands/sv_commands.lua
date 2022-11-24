@@ -1,5 +1,3 @@
-Commands = {}
-
 RegisterCommand("inserttebex", function(s,a,r)
     if s == 0 then 
         local tebexId = a[1]

@@ -1,6 +1,7 @@
 Admin = Admin or {}
-
 Admin.ESX = exports['es_extended']:getSharedObject()
+
+Commands = {}
 
 function Admin:getAllPlys()
     local tblSended = {}
