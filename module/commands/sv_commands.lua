@@ -15,22 +15,22 @@ end, false)
 
 Commands.Register("mp", function(source, args, rawCommand)
     local plySource = source
-    local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
+    local plyTarget = Admin.ESX.GetPlayerFromUUID(tonumber(args[1]))
     local reason = table.concat(args, " ", 2)
 
-    TriggerClientEvent("admin:asyncChat", plyTarget.source, plySource, reason)
+    TriggerClientEvent("admin:asyncChat", plyTarget.playerId, plySource, reason)
 end, {"mod", "admin", "superadmin"})
 
 Commands.Register("freezed", function(source, args, rawCommand)
     local plySource = source
-    local plyTarget = args[1]
+    local plyTarget = tonumber(args[1])
 
     if plyTarget then 
         local plyDb = Admin.ESX.GetPlayerFromUUID(plyTarget)
 
-        TriggerClientEvent('chatMessage', source, "^1MZPVP | ^7Vous avez freeze le joueur ^8^*" .. GetPlayerName(tPlayer.source))
-        TriggerClientEvent('chatMessage', plyDb.source, "^1MZPVP | ^7Vous avez été freeze par ^8^*" .. GetPlayerName(source))
-        TriggerClientEvent("kFw:freezeEntityPlayer", plyDb.source)
+        TriggerClientEvent('chatMessage', source, "^1MZPVP | ^7Vous avez freeze le joueur ^8^*" .. GetPlayerName(plySource))
+        TriggerClientEvent('chatMessage', plyDb.playerId, "^1MZPVP | ^7Vous avez été freeze par ^8^*" .. GetPlayerName(source))
+        TriggerClientEvent("kFw:freezeEntityPlayer", plyDb.playerId)
     end 
 end, {"admin", "mod", "superadmin"})
 
@@ -60,7 +60,7 @@ Commands.Register("kickuuid", function(source, args, rawCommand)
     local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
     local reason = table.concat(args, " ", 2)
 
-    TriggerClientEvent('chatMessage', plyDb.source, "MZ PVP: "..GetPlayerName(plyTarget.source).." was kicked from the server for: "..reason)
+    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..GetPlayerName(plyTarget.source).." was kicked from the server for: "..reason)
     DropPlayer(plyTarget.source, reason)
 end, {"mod", "admin", "superadmin"})
 

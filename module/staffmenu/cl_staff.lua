@@ -228,7 +228,7 @@ function Admin:OpenMenu()
                    
                     RageUI.ButtonWithStyle(" Freeze le joueur", nil, {RightLabel = ""}, true, function(_, _, s) 
                         if s then 
-                            ExecuteCommand("freezed " .. Admin.targetId.serverId)
+                            ExecuteCommand("freezed " .. Admin.targetId.userId)
                         end 
                     end)
                     RageUI.ButtonWithStyle(" Screenshot", nil, {RightLabel = ""}, true, function(_, _, s) 
