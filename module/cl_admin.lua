@@ -532,3 +532,29 @@ function answerToStaff(staff)
         end
     end)
 end
+
+
+playerFreeze = false
+RegisterNetEvent("kFw:freezeEntityPlayer")
+AddEventHandler("kFw:freezeEntityPlayer", function() 
+    playerFreeze = not playerFreeze
+    freezePlayerWhile()
+end)
+
+freezePlayerWhile = function() 
+    local pPed = GetPlayerPed(-1)
+    if not playerFreeze then FreezeEntityPosition(pPed, 0)  end
+    
+    Citizen.CreateThread(function() 
+        while playerFreeze do 
+            Citizen.Wait(1.0)
+            local pPed = GetPlayerPed(-1)
+            FreezeEntityPosition(pPed, 1)
+
+            if not playerFreeze then 
+                FreezeEntityPosition(pPed, 0)
+                break
+            end 
+        end 
+    end)
+end
