@@ -57,7 +57,7 @@ end, {"superadmin", "admin"})
 
 Commands.Register("kickuuid", function(source, args, rawCommand)
     local plySource = source
-    local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
+    local plyTarget = Admin.ESX.GetPlayerFromUUID(tonumber(args[1]))
     local reason = table.concat(args, " ", 2)
 
     if plyTarget == nil then return end 
