@@ -36,6 +36,9 @@ function Admin:OpenMenu()
         Player.InMenu = true
         RageUI.Visible(RMenu:Get('kernioz', 'main_menu_staff'), true)
       
+        TriggerServerCallback("players:getPlayers", function(cb)
+            Admin.Players = cb
+        end)
         Citizen.CreateThread(function()
             while Player.InMenu do
                 Citizen.Wait(1.0)

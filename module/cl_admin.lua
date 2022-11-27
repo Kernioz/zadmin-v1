@@ -414,45 +414,47 @@ whileShowName = function()
     
             local pPed = GetPlayerPed(-1)
             local pCoords = GetEntityCoords(pPed, false)
-            for _, v in pairs(GetActivePlayers()) do
-                local otherPed = GetPlayerPed(v)
-                local staff = DecorGetInt(otherPed, "group")
-            
-                if staff == nil then 
-                    staff = 0
-                end
-                local color = staffColor[staff].color
-                local tag = staffColor[staff].tag
-                
-                if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
-                    gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..GetPlayerServerId(v).."] "..GetPlayerName(v), false, false, "", 0)
-                    if staff ~= 0 then
-                        SetMpGamerTagColour(gamerTags[v], 0, tonumber(color))
-                    end
+            for k, value in pairs(Admin.Players) do 
+                for _, v in pairs(GetActivePlayers()) do
+                    if GetPlayerServerId(v) == v.playerId then 
+                        local otherPed = GetPlayerPed(v)
+                        local staff = DecorGetInt(otherPed, "group")
                     
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
-                    SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
-                    SetMpGamerTagName(gamerTags[v], "[" .. GetPlayerServerId(v) .. "] - " .. GetPlayerName(v))
-    
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, not IsPedInAnyVehicle(otherPed, false))
-                    SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, 255)
-    
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.MP_DRIVER, GetPedInVehicleSeat(GetVehiclePedIsIn(otherPed, false), -1) == otherPed)
-                    SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.MP_DRIVER, 255)
-    
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.MP_CO_DRIVER, GetPedInVehicleSeat(GetVehiclePedIsIn(otherPed, false), 0) == otherPed)
-                    SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.MP_CO_DRIVER, 255)
-
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.GAMER_NAME, true)
-                    SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.healthArmour, true)
-                    SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.healthArmour, 255)
-                else
-                    RemoveMpGamerTag(gamerTags[v])
-                    gamerTags[v] = nil
+                        if staff == nil then 
+                            staff = 0
+                        end
+                        local color = staffColor[staff].color
+                        local tag = staffColor[staff].tag
+                        
+                        if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
+                            gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..value.userId.."] "..GetPlayerName(v), false, false, "", 0)
+                            if staff ~= 0 then
+                                SetMpGamerTagColour(gamerTags[v], 0, tonumber(color))
+                            end
+                            
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
+                            SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
+                            SetMpGamerTagName(gamerTags[v], "[" .. value.userId .. "] - " .. GetPlayerName(v))
+            
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, not IsPedInAnyVehicle(otherPed, false))
+                            SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, 255)
+            
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.MP_DRIVER, GetPedInVehicleSeat(GetVehiclePedIsIn(otherPed, false), -1) == otherPed)
+                            SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.MP_DRIVER, 255)
+            
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.MP_CO_DRIVER, GetPedInVehicleSeat(GetVehiclePedIsIn(otherPed, false), 0) == otherPed)
+                            SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.MP_CO_DRIVER, 255)
+        
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.GAMER_NAME, true)
+                            SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.healthArmour, true)
+                            SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.healthArmour, 255)
+                        else
+                            RemoveMpGamerTag(gamerTags[v])
+                            gamerTags[v] = nil
+                        end
+                    end 
                 end
-
-              
-            end
+            end 
             Wait(500)
         end
         for _, v in pairs(gamerTags) do
