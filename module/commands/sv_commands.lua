@@ -60,8 +60,9 @@ Commands.Register("kickuuid", function(source, args, rawCommand)
     local plyTarget = Admin.ESX.GetPlayerFromUUID(args[1])
     local reason = table.concat(args, " ", 2)
 
-    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..GetPlayerName(plyTarget.source).." was kicked from the server for: "..reason)
-    DropPlayer(plyTarget.source, reason)
+    if plyTarget == nil then return end 
+    TriggerClientEvent('chatMessage', -1, "MZ PVP: "..GetPlayerName(plyTarget.playerId).." was kicked from the server for: "..reason)
+    DropPlayer(plyTarget.playerId, reason)
 end, {"mod", "admin", "superadmin"})
 
 local function TimeRemaining(seconds)
