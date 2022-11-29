@@ -449,7 +449,7 @@ whileShowName = function()
 
               
             end
-            Wait(500)
+            Wait(250)
         end
         for _, v in pairs(gamerTags) do
             RemoveMpGamerTag(v)
