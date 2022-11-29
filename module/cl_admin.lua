@@ -439,7 +439,7 @@ whileShowName = function()
                     
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
-                    SetMpGamerTagName(gamerTags[v], "[" .. value.userId .. "] - " .. GetPlayerName(v))
+                    SetMpGamerTagName(gamerTags[v], "[" .. myName.userId .. "] - " .. GetPlayerName(v))
     
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, not IsPedInAnyVehicle(otherPed, false))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, 255)
