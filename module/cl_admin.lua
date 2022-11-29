@@ -416,7 +416,7 @@ whileShowName = function()
             local pCoords = GetEntityCoords(pPed, false)
             for k, value in pairs(Admin.Players) do 
                 for _, v in pairs(GetActivePlayers()) do
-                    if GetPlayerServerId(v) == v.playerId then 
+                    if GetPlayerServerId(v) == value.playerId then 
                         local otherPed = GetPlayerPed(v)
                         local staff = DecorGetInt(otherPed, "group")
                     
