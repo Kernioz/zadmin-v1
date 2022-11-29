@@ -63,7 +63,7 @@ function Admin:OpenMenu()
                    
                         end
                     end, function()
-                        ShowNames(true)
+                        ShowNames()
                     end, function()
                         ShowNames(false)
                    end)
