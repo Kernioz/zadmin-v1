@@ -62,7 +62,7 @@ end)
 
 AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
     local plySource = source
-    local pDiscord, pLicense, pTokens = string.sub(zFw["Utils"].RequestLicense(plySource, "discord"), 9, -1), zFw["Utils"].RequestLicense(plySource, "license"), {}
+    local pLicense, pTokens = zFw["Utils"].RequestLicense(plySource, "license"), {}
 
     pDeferals.update("Identification en cours...")
     Citizen.Wait(5000)
