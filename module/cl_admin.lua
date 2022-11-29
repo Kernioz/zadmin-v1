@@ -427,9 +427,7 @@ whileShowName = function()
         
                 if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
                     gamerTags[v] = CreateFakeMpGamerTag(otherPed, " [".."TEST".."] "..GetPlayerName(v), false, false, "", 0)
-                    if staff ~= 0 then
-                        SetMpGamerTagColour(gamerTags[v], 0, tonumber(color))
-                    end
+                    
                     
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
