@@ -423,13 +423,10 @@ whileShowName = function()
             local pCoords = GetEntityCoords(pPed, false)
             for _, v in pairs(GetActivePlayers()) do
                 local otherPed = GetPlayerPed(v)
-                local staff = DecorGetInt(otherPed, "myId")
-                if staff == nil then 
-                    staff = 0
-                end
             
+        
                 if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
-                    gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..staff.."] "..GetPlayerName(v), false, false, "", 0)
+                    gamerTags[v] = CreateFakeMpGamerTag(otherPed, " [".."TEST".."] "..GetPlayerName(v), false, false, "", 0)
                     if staff ~= 0 then
                         SetMpGamerTagColour(gamerTags[v], 0, tonumber(color))
                     end
