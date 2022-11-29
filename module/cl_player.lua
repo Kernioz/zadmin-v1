@@ -21,6 +21,13 @@ Player.IsInvisible = false
 Player.IsInvincible = false
 Player.InMenu = false
 
+Citizen.CreateThread(function()
+    DecorRegister("myId", 3)
+    TriggerServerCallback("kernioz:getMyId", function(cb)
+        local pPed = GetPlayerPed(-1)
+        DecorSetInt(pPed, "myId", cb)
+    end)
+end)
 
 Citizen.CreateThread(function()
     Player.ID = PlayerId()

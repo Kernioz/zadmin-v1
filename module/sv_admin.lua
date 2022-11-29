@@ -25,6 +25,11 @@ RegisterServerCallback("players:getPlayers", function(source, cb)
     cb(Admin:getAllPlys())
 end)
 
+RegisterServerCallback("kernioz:getMyId", function(source, cb)
+    local plyDb = Admin.ESX.GetPlayerFromId(source)
+    cb(plyDb.user_id)
+end)
+
 RegisterNetEvent("admin:tooLongReplyStaff")
 AddEventHandler("admin:tooLongReplyStaff", function(toPlayer) 
     local source = source
