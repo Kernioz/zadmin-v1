@@ -58,6 +58,15 @@ function Admin:OpenMenu()
                 end)
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff_myped'), true, false, true, function() 
+                    RageUI.Checkbox(" Name", nil, Admin.HasGamerTag, {}, function(Hovered, Selected, Active, Checked)
+                        if (Active) then
+                   
+                        end
+                    end, function()
+                        ShowNames(true)
+                    end, function()
+                        ShowNames(false)
+                   end)
                     RageUI.Checkbox(" GodMode", nil, Player.IsInvincible, {}, function(Hovered, Selected, Active, Checked)
                         if (Active) then
                    
@@ -68,8 +77,8 @@ function Admin:OpenMenu()
                         SetEntityInvincible(Player.Ped, true)
                     end, function()
                         Player.IsInvincible = false
-                       NetworkSetLocalPlayerInvincibleTime(0)
-                       SetEntityInvincible(Player.Ped, false)
+                        NetworkSetLocalPlayerInvincibleTime(0)
+                        SetEntityInvincible(Player.Ped, false)
                    end)
                     RageUI.Checkbox(" Visible", nil, Player.IsInvisible, {}, function(Hovered, Selected, Active, Checked)
                         if (Active) then
