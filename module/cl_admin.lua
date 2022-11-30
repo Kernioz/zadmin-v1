@@ -430,7 +430,9 @@ whileShowName = function()
                 local otherPed = GetPlayerPed(v)
                 local staff = GetPlyId(GetPlayerServerId(v))
             
+                
                 if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
+                    if staff == nil then gamerTags[v] = nil end 
                     gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..staff.userId.."] "..GetPlayerName(v), false, false, "", 0)
                
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
