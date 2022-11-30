@@ -51,7 +51,12 @@ Admin.DetailsInSpec = {
     exit = {
         control = 45,
         label = "Quitter"
-    }
+    },
+
+    openmenu = {
+        control = 51,
+        label = "Ouvrir le menu"
+    },
 }
 
 kUtils.RegisterControlKey("handlerSpectacte", "Mode spectateur (staff)", "O", function()
