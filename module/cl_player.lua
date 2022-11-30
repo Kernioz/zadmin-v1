@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
     DecorRegister("myId", 3)
     TriggerServerCallback("kernioz:getMyId", function(cb)
         local pPed = GetPlayerPed(-1)
-        DecorSetInt(pPed, "myId", cb)
+        DecorSetInt(pPed, "myId", tonumber(cb))
     end)
 end)
 

@@ -423,12 +423,14 @@ whileShowName = function()
             local pCoords = GetEntityCoords(pPed, false)
             for _, v in pairs(GetActivePlayers()) do
                 local otherPed = GetPlayerPed(v)
+                local staff = DecorGetInt(otherPed, "myId")
+            
                 if #(pCoords - GetEntityCoords(otherPed, false)) < 250.0 then
-                    gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..GetPlayerServerId(v).."] "..GetPlayerName(v), false, false, "", 0)
+                    gamerTags[v] = CreateFakeMpGamerTag(otherPed, " ["..staff.."] "..GetPlayerName(v), false, false, "", 0)
                
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
-                    SetMpGamerTagName(gamerTags[v], "[" .. GetPlayerServerId(v) .. "] - " .. GetPlayerName(v))
+                    SetMpGamerTagName(gamerTags[v], "[" .. staff .. "] - " .. GetPlayerName(v))
     
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, not IsPedInAnyVehicle(otherPed, false))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.INV_IF_PED_FOLLOWING, 255)
