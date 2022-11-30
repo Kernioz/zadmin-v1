@@ -273,7 +273,7 @@ function Admin:ScalformSpectate()
     if IsControlJustPressed(0, Admin.DetailsInSpec.openmenu.control) then
         Admin.tId = GetPlayerServerId(Admin.CamTarget.id)
         if Admin.tId and Admin.tId > 0 then
-   --         CreateMenu(Admin.Menu)
+            Admin:OpenPlayer(Admin.tId)
             Wait(15)
    
         end

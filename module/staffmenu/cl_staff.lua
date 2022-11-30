@@ -26,6 +26,108 @@ kUtils.RegisterControlKey("handlerStaff", "Menu staff", "F10", function()
     Admin:OpenMenu()
 end)
 
+RMenu.Add('kernioz', 'ply', RageUI.CreateMenu("Admin", "Menu options", 1, 100))
+RMenu:Get('kernioz', 'ply').Closed = function()
+    Player.InMenu = false
+end
+
+
+function Admin:OpenPlayer(id)
+    if Player.InMenu then 
+        Player.InMenu = false
+        RageUI.CloseAll()
+        return
+    else
+        Player.InMenu = true
+        RageUI.Visible(RMenu:Get('kernioz', 'main_menu_staff'), true)
+      
+        TriggerServerCallback("players:getPlayers", function(cb)
+            Admin.Players = cb
+        end)
+
+        Citizen.Wait(250)
+        local myPlayer = GetPlyId(id)
+        Citizen.CreateThread(function() 
+            while Player.InMenu do 
+                Citizen.Wait(1.0)
+
+                RageUI.IsVisible(RMenu:Get("kernioz", "ply"), true, false, true, function() 
+                    RageUI.ButtonWithStyle("~r~ (" .. myPlayer.userId .. ") - " .. myPlayer.playerName, nil, {RightLabel = ""}, true, function(_, _, s) end)
+
+                    RageUI.ButtonWithStyle(" Envoyer un messagé privé", nil, {RightLabel = ""}, true, function(_, _, s)
+                        if s then 
+                            kUtils.AskEntry(function(msg)
+                                if msg == nil then
+                                    kUtils.ShowNotification("~r~Veuillez insérer un message !")
+                                    return
+                                end
+
+                                ExecuteCommand("mp " .. myPlayer.userId .. " " .. msg)
+                            end, "~q~Message au joueur")
+                        end 
+                    end)
+                    RageUI.ButtonWithStyle(" Spectate ", nil, {RightLabel = ""}, true, function(_, _, s)
+                        if s then
+                            if not Admin.InSpec then
+                                kUtils.ShowNotification("~r~Vous devez être en mode spectateur !")
+                                return
+                            end
+                            if not DoesEntityExist(GetPlayerPed(GetPlayerFromServerId(myPlayer.serverId))) then
+                                kUtils.ShowNotification("~r~Le joueur est trop loin !")
+                                return
+                            end
+
+                            if Admin.CamTarget and Admin.CamTarget.id then
+                                Admin:ExitSpectate()
+                            end
+                            Admin:StartSpectate(myPlayer)
+                        end
+                    end)
+                    RageUI.ButtonWithStyle(" Goto", nil, {RightLabel = ""}, true, function(_, _, s) 
+                        if s then 
+                            ExecuteCommand("goto " .. myPlayer.serverId)
+                        end
+                    end)
+                    RageUI.ButtonWithStyle(" Bring", nil, {RightLabel = ""}, true, function(_, _, s) 
+                        if s then 
+                            ExecuteCommand("bring " .. myPlayer.serverId)
+                        end
+                    end)
+                    
+                    RageUI.List(" Information", {"UUID", "Discord", "License", "Tout"}, cfg_staff.indexHandler.infoPer, nil, {}, true, {
+                        onListChange = function(Index, Item)
+                            cfg_staff.indexHandler.infoPer = Index
+                        end,
+
+                        onSelected = function(Index, Item)
+                            if Index == 1 then
+                                ExecuteCommand("getinfo " .. myPlayer.userId .. " uuid")
+                            elseif Index == 2 then
+                                ExecuteCommand("getinfo " .. myPlayer.userId .. " discord")
+                            elseif Index == 3 then
+                                ExecuteCommand("getinfo " .. myPlayer.userId .. " license")
+                            elseif Index == 4 then
+                                ExecuteCommand("getinfo " .. myPlayer.userId .. " all")
+                            end
+                        end,
+                    })
+                   
+                    RageUI.ButtonWithStyle(" Freeze le joueur", nil, {RightLabel = ""}, true, function(_, _, s) 
+                        if s then 
+                            ExecuteCommand("freezed " .. myPlayer.userId)
+                        end 
+                    end)
+                    RageUI.ButtonWithStyle(" Screenshot", nil, {RightLabel = ""}, true, function(_, _, s) 
+                        if s then 
+                            ExecuteCommand("screen " .. myPlayer.userId)
+                        end 
+                    end)
+                end)
+            end 
+        end)
+    end
+end
+
 local wantConfirm = false
 function Admin:OpenMenu()
     if Player.InMenu then 
