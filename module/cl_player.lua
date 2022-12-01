@@ -59,3 +59,4 @@ Citizen.CreateThread(function()
         Player.Armor = GetPedArmour(Player.Ped)
     end
 end)
+

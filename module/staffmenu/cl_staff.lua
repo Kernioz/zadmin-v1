@@ -39,18 +39,17 @@ function Admin:OpenPlayer(id)
         return
     else
         Player.InMenu = true
-        RageUI.Visible(RMenu:Get('kernioz', 'main_menu_staff'), true)
+        RageUI.Visible(RMenu:Get('kernioz', 'ply'), true)
       
         TriggerServerCallback("players:getPlayers", function(cb)
             Admin.Players = cb
         end)
 
-        Citizen.Wait(250)
+        print("ouverture menu")
         local myPlayer = GetPlyId(id)
         Citizen.CreateThread(function() 
             while Player.InMenu do 
                 Citizen.Wait(1.0)
-
                 RageUI.IsVisible(RMenu:Get("kernioz", "ply"), true, false, true, function() 
                     RageUI.ButtonWithStyle("~r~ (" .. myPlayer.userId .. ") - " .. myPlayer.playerName, nil, {RightLabel = ""}, true, function(_, _, s) end)
 

@@ -272,11 +272,8 @@ function Admin:ScalformSpectate()
     end
     if IsControlJustPressed(0, Admin.DetailsInSpec.openmenu.control) then
         Admin.tId = GetPlayerServerId(Admin.CamTarget.id)
-        if Admin.tId and Admin.tId > 0 then
-            Admin:OpenPlayer(Admin.tId)
-            Wait(15)
-   
-        end
+        print(Admin.tId)
+        Admin:OpenPlayer(GetPlayerServerId(Admin.CamTarget.id))
     end
     if GetGameTimer() > Admin.Timer then
         Admin.Timer = GetGameTimer() + 1000
