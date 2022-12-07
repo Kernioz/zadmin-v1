@@ -2126,7 +2126,7 @@ end
 kUtils.RegisterControlKey = function(strKeyName, strDescription, strKey, cbPress, elease) -- Bind une touche pour une action
     RegisterKeyMapping("" .. strKeyName, strDescription, "keyboard", strKey)
 	RegisterCommand("" .. strKeyName, function()
-		if PLAYER.IsDead then return end
+	
             cbPress()
     end, false)
 end
