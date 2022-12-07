@@ -176,18 +176,12 @@ function Admin:OpenMenu()
                             v.targetName = string.lower(v.targetName)
                             if string.sub(v.targetName, 1, string.len(cfg_staff.filterHandler.filtrer)) == cfg_staff.filterHandler.filtrer then
                                 RageUI.ButtonWithStyle(" " ..noLabel .. " [ID:" .. v.id .. "]", "Ce joueur a été banni par ~g~" .. v.sourceName .. "~s~\n pour la raison: ~g~" .. v.reason, {}, true, function(_, _, s)
-                                    if s then
-                                        ExecuteCommand("unban " .. v.id)
-                                        kUtils.ShowNotification("~g~Vous avez débanni le joueur ~b~" .. v.targetName)
-                                    end 
+                                  
                                 end)
                             end
                         else
                             RageUI.ButtonWithStyle(" " ..v.targetName .. " [ID:" .. v.id .. "]", "Ce joueur a été banni par ~g~" .. v.sourceName .. "~s~\n pour la raison: ~g~" .. v.reason, {}, true, function(_, _, s)
-                                if s then
-                                    ExecuteCommand("unban " .. v.id)
-                                    kUtils.ShowNotification("~g~Vous avez débanni le joueur ~b~" .. v.targetName)
-                                end 
+                             
                             end)
                         end
                 
