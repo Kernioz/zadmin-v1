@@ -98,11 +98,11 @@ AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
                     local playerIp = GetPlayerEndpoint(plySource)
 
                     if pDiscord ~= nil then 
-                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
                         joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
                     else
-                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
-                        joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **Introuvable**")
+                        joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **Introuvable**")
                           
                     end 
                 end
@@ -112,11 +112,11 @@ AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
             local playerIp = GetPlayerEndpoint(plySource)
 
             if pDiscord ~= nil then 
-                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
-                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
             else
-                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
-                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **Introuvable**")
+                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. pLicense .. "**\nDiscord: **Introuvable**")
                   
             end 
 
