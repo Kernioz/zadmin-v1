@@ -75,3 +75,24 @@ function Bans:Add(source, licenseid, playerip, targetName, sourceName, time, rea
         end
     end)
 end
+
+RegisterServerCallback("bans:getList", function(source, cb)
+    local infoBan = MySQL.Sync.fetchAll("SELECT * FROM banlist")
+
+    local tempBan = {}
+    for k, v in pairs(infoBan) do
+        tempBan[#tempBan + 1] = {
+            licenseid = infoBan[k].licenseid,
+            playerip = infoBan[k].playerip,
+            targetName = infoBan[k].targetName,
+            sourceName = infoBan[k].sourceName,
+            reason = infoBan[k].reason,
+            timeat = infoBan[k].timeat,
+            expiration = infoBan[k].expiration,
+            permanent = infoBan[k].permanent,
+            id = infoBan[k].id 
+        }
+    end
+
+    cb(tempBan)
+end)

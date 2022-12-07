@@ -45,7 +45,6 @@ function Admin:OpenPlayer(id)
             Admin.Players = cb
         end)
 
-        print("ouverture menu")
         local myPlayer = GetPlyId(id)
         Citizen.CreateThread(function() 
             while Player.InMenu do 
@@ -144,6 +143,57 @@ function Admin:OpenMenu()
             while Player.InMenu do
                 Citizen.Wait(1.0)
 
+                RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff_banlist'), true, false, true, function() 
+                    RageUI.ButtonWithStyle(" Filtrer", haveFiltre(cfg_staff.filterHandler.filtrerName), { RightLabel = "🔎" }, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            cfg_staff.filterHandler.filtrer = nil
+                            a = kUtils.KeyboardInput("KERNIOZ_TEST", "~o~Que recherchez-vous ?", "", 200)
+                            a = tostring(a)
+                            if a ~= "nil" then
+                                if type(a) == 'string' then
+                                    cfg_staff.filterHandler.filtrer = a
+                                    cfg_staff.filterHandler.filtrerName = a
+                                    cfg_staff.filterHandler.filtrer = cfg_staff.filterHandler.filtrer:sub(1, -2)
+                                    cfg_staff.filterHandler.filtrer = string.lower(cfg_staff.filterHandler.filtrer)
+                                end
+                            else
+                                cfg_staff.filterHandler.filtrer = nil
+                                kUtils.ShowNotification("~r~Recherche invalide/annulée")
+                            end
+                        end
+                    end)
+                    if cfg_staff.filterHandler.filtrer ~= nil then 
+                        RageUI.ButtonWithStyle(" Supprimer le filtre", nil, { RightLabel = "❌" }, true, function(_, _, s)
+                            if s then 
+                                cfg_staff.filterHandler.filtrer = nil
+                            end 
+                        end)
+                    end 
+                    RageUI.Separator("Actuellement ~g~" .. #Admin.Banlist .. "~s~ bannissements inachevés/permanents")
+                    for k, v in pairs(Admin.Banlist) do 
+                        if cfg_staff.filterHandler.filtrer ~= nil then
+                            noLabel = v.targetName
+                            v.targetName = string.lower(v.targetName)
+                            if string.sub(v.targetName, 1, string.len(cfg_staff.filterHandler.filtrer)) == cfg_staff.filterHandler.filtrer then
+                                RageUI.ButtonWithStyle(" " ..noLabel .. " [ID:" .. v.id .. "]", "Ce joueur a été banni par ~g~" .. v.sourceName .. "~s~\n pour la raison: ~g~" .. v.reason, {}, true, function(_, _, s)
+                                    if s then
+                                        ExecuteCommand("unban " .. v.id)
+                                        kUtils.ShowNotification("~g~Vous avez débanni le joueur ~b~" .. v.targetName)
+                                    end 
+                                end)
+                            end
+                        else
+                            RageUI.ButtonWithStyle(" " ..v.targetName .. " [ID:" .. v.id .. "]", "Ce joueur a été banni par ~g~" .. v.sourceName .. "~s~\n pour la raison: ~g~" .. v.reason, {}, true, function(_, _, s)
+                                if s then
+                                    ExecuteCommand("unban " .. v.id)
+                                    kUtils.ShowNotification("~g~Vous avez débanni le joueur ~b~" .. v.targetName)
+                                end 
+                            end)
+                        end
+                
+                    end 
+                end)
+
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff'), true, false, true, function()
                    -- RageUI.Separator("~g~" .. #Admin.Players .. "~s~ joueurs en ligne")
                     RageUI.ButtonWithStyle(" Players list", nil, {RightLabel = "→"}, true, function(_, _, s)
@@ -156,6 +206,13 @@ function Admin:OpenMenu()
 
                     RageUI.ButtonWithStyle(" My player", nil, {RightLabel = "→"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_myped'))
                     RageUI.ButtonWithStyle(" Vehicles", nil, {RightLabel = "→"}, true, function(f, g, s) end, RMenu:Get('kernioz', 'main_menu_staff_vehicles'))
+                    RageUI.ButtonWithStyle(" Banlist", nil, {RightLabel = ""}, true, function(f, g ,s)
+                        if s then 
+                            TriggerServerCallback("bans:getList", function(cb)
+                                Admin.Banlist = cb
+                            end)
+                        end 
+                    end, RMenu:Get('kernioz', 'main_menu_staff_banlist'))
                 end)
 
                 RageUI.IsVisible(RMenu:Get('kernioz', 'main_menu_staff_myped'), true, false, true, function() 
@@ -299,10 +356,7 @@ function Admin:OpenMenu()
                                 kUtils.ShowNotification("~r~Vous devez être en mode spectateur !")
                                 return
                             end
-                            if not DoesEntityExist(GetPlayerPed(GetPlayerFromServerId(Admin.targetId.serverId))) then
-                                kUtils.ShowNotification("~r~Le joueur est trop loin !")
-                                return
-                            end
+                          
 
                             if Admin.CamTarget and Admin.CamTarget.id then
                                 Admin:ExitSpectate()
