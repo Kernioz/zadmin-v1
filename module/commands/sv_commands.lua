@@ -45,16 +45,20 @@ Commands.Register("dv", function(source, args, rawCommand)
     end
 end, {"mod", "admin", "superadmin"})
 
+local unbanWebhook = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050073632136777858/0NnprgckUwABYJQPhKzfmxHQPmNkaKpfcbJqsh1KTM9_3VRTxBDbmSM6ZE6JaTygH7Wv")
 Commands.Register("unban", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = args[1]
 
     if plyTarget then 
         Bans:DeleteWithId(plyTarget)
+
+        unbanWebhook.sendMessage("Déban", GetPlayerName(plySource) " a débanni l'ID: ".. plyTarget)
     end
 end, {"superadmin", "admin"})
 
 
+local kickWebhook = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050070087689842848/g7OMBEyScbgzUWSXQG_qOnFF03VSXIIsW3uNA80l7a_RtHxD7jVL5nM0tI-I1nX5qxAI")
 Commands.Register("kickuuid", function(source, args, rawCommand)
     local plySource = source
     local plyTarget = Admin.ESX.GetPlayerFromUUID(tonumber(args[1]))
@@ -63,6 +67,8 @@ Commands.Register("kickuuid", function(source, args, rawCommand)
     if plyTarget == nil then return end 
     TriggerClientEvent('chatMessage', -1, "MZ PVP: "..GetPlayerName(plyTarget.playerId).." was kicked from the server for: "..reason)
     DropPlayer(plyTarget.playerId, reason)
+
+    kickWebhook.sendMessage("Kick", GetPlayerName(plyTarget.source) .. " a été kick du serveur pour " .. reason .. " par " .. GetPlayerName(plySource))
 end, {"mod", "admin", "superadmin"})
 
 local function TimeRemaining(seconds)
@@ -73,6 +79,8 @@ local function TimeRemaining(seconds)
     return ('%s jours %s heures %s minutes %s secondes'):format(math.floor(days), math.floor(hours), math.floor(minutes), math.floor(seconds))
 end
 
+
+local banWebhook = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050069984652566568/1giK-5m5cZZ2pP_W7gcNyBnvEeEtNam2WU6FsIDlgtF-60UeNxVwpLDfeinRdVIxnL8E")
 Commands.Register("banuuid", function(source, args, rawCommand)
     local licenseid, playerip, tokens = 'N/A', 'N/A', {}
     local target = tonumber(args[1])
@@ -103,7 +111,9 @@ Commands.Register("banuuid", function(source, args, rawCommand)
                     Bans:Add(source, licenseid, playerip, targetName, sourceName, expiration, reason, 0, tokens)
                     TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was banned from the server for: "..reason)
                     DropPlayer(targetDb.source, ('Vous êtes banni de MZPVP\nRaison : %s\nTemps Restant : %s\nAuteur : %s'):format(reason, TimeRemaining(expiration * 3600), sourceName))
+                    banWebhook.sendMessage("Bannissement", targetName .. " a été banni du serveur pendant " .. TimeRemaining(expiration * 3600) .. " par " .. sourceName)
                 else
+                    banWebhook.sendMessage("Bannissement", targetName .. " a été banni permanent par " .. sourceName)
                     Bans:Add(source, licenseid, playerip, targetName, sourceName, expiration, reason, 1, tokens)
                     TriggerClientEvent('chatMessage', -1, "MZ PVP: "..targetName.." was banned from the server for: "..reason)
                     DropPlayer(targetDb.source, ('Vous êtes banni de MZPVP\nRaison : %s\nTemps Restant : Permanent\nAuteur : %s'):format(reason, sourceName))

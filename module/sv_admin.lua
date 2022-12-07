@@ -60,17 +60,15 @@ AddEventHandler("admin:plyManager", function(param, int, arg)
     end
 end)
 
+local joinActivites = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050070362831982672/wfck8aY_OKlPdXipihCriQLhcmax3OSL-qXuqUPfsmz4QRebiRZgIsIFqSUkNZ-tRnTY")
+local joinActivitesS = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050070295429533786/wHpuTa0ZkoGQnMIj7Q7FEmIe0JKudTeE58U2djmhGtSpB37NwSrHb8G1sVchWw5Z9JvU")
 AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
     local plySource = source
-    local pLicense, pTokens = zFw["Utils"].RequestLicense(plySource, "license"), {}
+    local pDiscord, pLicense, pTokens = string.sub(zFw["Utils"].RequestLicense(plySource, "discord"), 9, -1), zFw["Utils"].RequestLicense(plySource, "license"), {}
 
     pDeferals.update("Identification en cours...")
     Citizen.Wait(5000)
-    if (not pDiscord or pDiscord == nil or pDiscord == "") then
-        deferrals.done("🚫 Veuillez ouvrir Discord pour vous connecter sur MZ PVP.")
-        CancelEvent()
-        return
-    end
+
 
 
     if GetNumPlayerTokens(plySource) == 0 or GetNumPlayerTokens(plySource) == nil or GetNumPlayerTokens(plySource) < 0 or GetNumPlayerTokens(plySource) == "**Invalid**" or GetNumPlayerTokens(plySource) == "null" or not GetNumPlayerTokens(plySource) then 
@@ -96,10 +94,39 @@ AddEventHandler("playerConnecting", function(pName, setKickReason, pDeferals)
                 else
                     GM.Bans:Delete(pLicense)
                     pDeferals.done()
+
+                    local playerIp = GetPlayerEndpoint(plySource)
+
+                    if pDiscord ~= nil then 
+                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                        joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                    else
+                        joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                        joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                          
+                    end 
                 end
             end
         else
+
+            local playerIp = GetPlayerEndpoint(plySource)
+
+            if pDiscord ~= nil then 
+                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **<@" .. pDiscord .. ">**")
+            else
+                joinActivites.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\n IP: **" .. playerIp .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                joinActivitesS.sendMessage("Connexion 🔒", "Connexion en cours d'un joueur sur **MZPVP**\n\n Nom du joueur: **" .. GetPlayerName(plySource) .. "**\nLicence: **" .. plyLicense .. "**\nDiscord: **Introuvable**")
+                  
+            end 
+
             pDeferals.done()
         end
     end)
+end)
+
+local disconnectActivities = Discord.API:CreateWebhook("https://discord.com/api/webhooks/1050070513516544190/XO030fjqwMAP7KwHeEGcc5YrcnzsyMCREw-tRWDhFsqP9jzPw_p6R0RqA4DeuJ5tZcKs")
+AddEventHandler("playerDropped", function(reason)
+    local source = source
+    if reason ~= nil then disconnectActivities.sendMessage("Déconnexion", "Déconnexion d'un joueur sur **MZPVP**\n Nom du joueur: **" .. GetPlayerName(source) .. "**\n Raison: ** " .. reason .. " **") end
 end)

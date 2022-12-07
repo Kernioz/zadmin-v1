@@ -227,10 +227,23 @@ function Admin:OpenMenu()
                         Player.IsInvincible = true
                         NetworkSetLocalPlayerInvincibleTime(9999)
                         SetEntityInvincible(Player.Ped, true)
+                        SetPedCanRagdoll(GetPlayerPed(-1), false)
+                        ClearPedBloodDamage(GetPlayerPed(-1))
+                        ResetPedVisibleDamage(GetPlayerPed(-1))
+                        ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                        SetEntityProofs(GetPlayerPed(-1), true, true, true, true, true, true, true, true)
+                        SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), false)
+                        SetEntityCanBeDamaged(GetPlayerPed(-1), false)
                     end, function()
                         Player.IsInvincible = false
                         NetworkSetLocalPlayerInvincibleTime(0)
                         SetEntityInvincible(Player.Ped, false)
+
+                        SetPedCanRagdoll(GetPlayerPed(-1), true)
+                        ClearPedLastWeaponDamage(GetPlayerPed(-1))
+                        SetEntityProofs(GetPlayerPed(-1), false, false, false, false, false, false, false, false)
+                        SetEntityOnlyDamagedByPlayer(GetPlayerPed(-1), true)
+                        SetEntityCanBeDamaged(GetPlayerPed(-1), true)
                    end)
                     RageUI.Checkbox(" Visible", nil, Player.IsInvisible, {}, function(Hovered, Selected, Active, Checked)
                         if (Active) then
