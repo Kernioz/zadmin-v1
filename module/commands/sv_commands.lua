@@ -53,7 +53,7 @@ Commands.Register("unban", function(source, args, rawCommand)
     if plyTarget then 
         Bans:DeleteWithId(plyTarget)
 
-        unbanWebhook.sendMessage("Déban", GetPlayerName(plySource) " a débanni l'ID: ".. plyTarget)
+        unbanWebhook.sendMessage("Déban", GetPlayerName(plySource).." a débanni l'ID: ".. plyTarget)
     end
 end, {"superadmin", "admin"})
 
@@ -68,7 +68,7 @@ Commands.Register("kickuuid", function(source, args, rawCommand)
     TriggerClientEvent('chatMessage', -1, "MZ PVP: "..GetPlayerName(plyTarget.playerId).." was kicked from the server for: "..reason)
     DropPlayer(plyTarget.playerId, reason)
 
-    kickWebhook.sendMessage("Kick", GetPlayerName(plyTarget.source) .. " a été kick du serveur pour " .. reason .. " par " .. GetPlayerName(plySource))
+    kickWebhook.sendMessage("Kick", GetPlayerName(plyTarget.playerId) .. " a été kick du serveur pour " .. reason .. " par " .. GetPlayerName(plySource))
 end, {"mod", "admin", "superadmin"})
 
 local function TimeRemaining(seconds)
