@@ -2124,8 +2124,8 @@ kUtils.TaskAnimForce = function(animName, flag, args) -- Faire forcer une anim a
 end
 
 kUtils.RegisterControlKey = function(strKeyName, strDescription, strKey, cbPress, elease) -- Bind une touche pour une action
-    RegisterKeyMapping("+" .. strKeyName, strDescription, "keyboard", strKey)
-	RegisterCommand("+" .. strKeyName, function()
+    RegisterKeyMapping("" .. strKeyName, strDescription, "keyboard", strKey)
+	RegisterCommand("" .. strKeyName, function()
 		if PLAYER.IsDead then return end
             cbPress()
     end, false)
