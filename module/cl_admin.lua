@@ -455,7 +455,7 @@ whileShowName = function()
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.healthArmour, true)
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.healthArmour, 255)
                 else
-                           
+                    if staff == nil then gamerTags[v] = nil end    
                     SetMpGamerTagVisibility(gamerTags[v], Admin.AllTags.AUDIO_ICON, NetworkIsPlayerTalking(v))
                     SetMpGamerTagAlpha(gamerTags[v], Admin.AllTags.AUDIO_ICON, 255)
                     SetMpGamerTagName(gamerTags[v], "[" .. staff.userId .. "] - " .. GetPlayerName(v))
