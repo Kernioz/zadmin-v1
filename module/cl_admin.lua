@@ -301,6 +301,8 @@ function Admin:SpecAndPos()
             Admin:StartSpectate(qTable)
         end
     end
+    local camActive = GetCamCoord(Admin.Cam)
+    SetEntityCoords(GetPlayerPed(-1), camActive)
     if IsControlJustPressed(1, Admin.DetailsScalform.gotopos.control) then
         local camActive = GetCamCoord(Admin.Cam)
         Admin:Spectate(camActive)
