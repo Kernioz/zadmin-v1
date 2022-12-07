@@ -404,8 +404,8 @@ ShowNames = function(status)
         Admin.HasGamerTag = false
         for _, v in pairs(gamerTags) do
             RemoveMpGamerTag(v)
-            gamerTags[v] = nil
         end
+        gamerTags = {}
         kUtils.ShowNotification("~r~Vous avez désactivé les noms !")
         return
     end
